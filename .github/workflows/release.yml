@@ -1,0 +1,48 @@
+name: Generate CV and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate English CV (A4)
+        run: npx md2cv -i cv-en/cv-en.md -o cv-en/cv-en -f cv -t both -p a4
+
+      - name: Generate Japanese CV (A4)
+        run: npx md2cv -i rirekisho-cv-ja/cv-ja.md -o rirekisho-cv-ja/cv-ja -f cv -t both -p a4
+
+      - name: Generate Japanese Rirekisho (A3)
+        run: npx md2cv -i rirekisho-cv-ja/cv-ja.md -o rirekisho-cv-ja/cv-ja -f rirekisho -t both -p a3
+
+      - name: Get current date
+        id: date
+        run: echo "tag=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.date.outputs.tag }}
+          name: Release ${{ steps.date.outputs.tag }}
+          files: |
+            cv-en/cv-en_cv.pdf
+            cv-en/cv-en_cv.html
+            rirekisho-cv-ja/cv-ja_cv.pdf
+            rirekisho-cv-ja/cv-ja_cv.html
+            rirekisho-cv-ja/cv-ja_rirekisho.pdf
+            rirekisho-cv-ja/cv-ja_rirekisho.html
+          generate_release_notes: true
