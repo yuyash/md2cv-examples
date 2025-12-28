@@ -25,10 +25,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y fonts-noto-core fonts-noto-cjk fonts-noto-cjk-extra
           
-          # Download Noto Serif JP (Mincho) from Google Fonts
+          # Download Noto Serif JP (Mincho) from GitHub releases
           mkdir -p ~/.fonts
-          curl -L -o /tmp/noto-serif-jp.zip "https://fonts.google.com/download?family=Noto%20Serif%20JP"
-          unzip -o /tmp/noto-serif-jp.zip -d ~/.fonts/
+          curl -L -o /tmp/NotoSerifJP.zip "https://github.com/notofonts/noto-cjk/releases/download/Serif2.003/12_NotoSerifJP.zip"
+          unzip -o /tmp/NotoSerifJP.zip -d ~/.fonts/
           fc-cache -fv
 
       # ===== Standard CV (with frontmatter) =====
