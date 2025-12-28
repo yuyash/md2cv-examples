@@ -1,0 +1,6 @@
+# Generated files
+*.html
+*.pdf
+
+# Environment file with personal information
+.env

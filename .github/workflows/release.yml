@@ -25,6 +25,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra
 
+      # ===== Standard CV (with frontmatter) =====
       - name: Generate English CV (A4)
         run: npx md2cv -i cv-en/cv-en.md -o cv-en/cv-en -f cv -t both -p a4
 
@@ -33,6 +34,54 @@ jobs:
 
       - name: Generate Japanese Rirekisho (A3)
         run: npx md2cv -i rirekisho-cv-ja/cv-ja.md -o rirekisho-cv-ja/cv-ja -f rirekisho -t both -p a3
+
+      # ===== Environment Variables CV =====
+      - name: Generate English CV from env variables (A4)
+        env:
+          NAME: ${{ secrets.CV_EN_NAME }}
+          EMAIL_ADDRESS: ${{ secrets.CV_EN_EMAIL_ADDRESS }}
+          PHONE_NUMBER: ${{ secrets.CV_EN_PHONE_NUMBER }}
+          HOME_ADDRESS: ${{ secrets.CV_EN_HOME_ADDRESS }}
+          LINKEDIN: ${{ secrets.CV_EN_LINKEDIN }}
+        run: npx md2cv -i cv-en-env-variables/cv-en.md -o cv-en-env-variables/cv-en -f cv -t both -p a4
+
+      - name: Generate Japanese CV from env variables (A4)
+        env:
+          NAME: ${{ secrets.CV_JA_NAME }}
+          NAME_JA: ${{ secrets.CV_JA_NAME_JA }}
+          NAME_FURIGANA: ${{ secrets.CV_JA_NAME_FURIGANA }}
+          EMAIL_ADDRESS: ${{ secrets.CV_JA_EMAIL_ADDRESS }}
+          PHONE_NUMBER: ${{ secrets.CV_JA_PHONE_NUMBER }}
+          POST_CODE: ${{ secrets.CV_JA_POST_CODE }}
+          HOME_ADDRESS: ${{ secrets.CV_JA_HOME_ADDRESS }}
+          HOME_ADDRESS_FURIGANA: ${{ secrets.CV_JA_HOME_ADDRESS_FURIGANA }}
+          EMAIL_ADDRESS2: ${{ secrets.CV_JA_EMAIL_ADDRESS2 }}
+          PHONE_NUMBER2: ${{ secrets.CV_JA_PHONE_NUMBER2 }}
+          POST_CODE2: ${{ secrets.CV_JA_POST_CODE2 }}
+          HOME_ADDRESS2: ${{ secrets.CV_JA_HOME_ADDRESS2 }}
+          HOME_ADDRESS2_FURIGANA: ${{ secrets.CV_JA_HOME_ADDRESS2_FURIGANA }}
+          DOB: ${{ secrets.CV_JA_DOB }}
+          GENDER: ${{ secrets.CV_JA_GENDER }}
+        run: npx md2cv -i cv-ja-env-variables/cv-ja.md -o cv-ja-env-variables/cv-ja -f cv -t both -p a4
+
+      - name: Generate Japanese Rirekisho from env variables (A3)
+        env:
+          NAME: ${{ secrets.CV_JA_NAME }}
+          NAME_JA: ${{ secrets.CV_JA_NAME_JA }}
+          NAME_FURIGANA: ${{ secrets.CV_JA_NAME_FURIGANA }}
+          EMAIL_ADDRESS: ${{ secrets.CV_JA_EMAIL_ADDRESS }}
+          PHONE_NUMBER: ${{ secrets.CV_JA_PHONE_NUMBER }}
+          POST_CODE: ${{ secrets.CV_JA_POST_CODE }}
+          HOME_ADDRESS: ${{ secrets.CV_JA_HOME_ADDRESS }}
+          HOME_ADDRESS_FURIGANA: ${{ secrets.CV_JA_HOME_ADDRESS_FURIGANA }}
+          EMAIL_ADDRESS2: ${{ secrets.CV_JA_EMAIL_ADDRESS2 }}
+          PHONE_NUMBER2: ${{ secrets.CV_JA_PHONE_NUMBER2 }}
+          POST_CODE2: ${{ secrets.CV_JA_POST_CODE2 }}
+          HOME_ADDRESS2: ${{ secrets.CV_JA_HOME_ADDRESS2 }}
+          HOME_ADDRESS2_FURIGANA: ${{ secrets.CV_JA_HOME_ADDRESS2_FURIGANA }}
+          DOB: ${{ secrets.CV_JA_DOB }}
+          GENDER: ${{ secrets.CV_JA_GENDER }}
+        run: npx md2cv -i cv-ja-env-variables/cv-ja.md -o cv-ja-env-variables/cv-ja -f rirekisho -t both -p a3
 
       - name: Get current date
         id: date
@@ -50,4 +99,10 @@ jobs:
             rirekisho-cv-ja/cv-ja_cv.html
             rirekisho-cv-ja/cv-ja_rirekisho.pdf
             rirekisho-cv-ja/cv-ja_rirekisho.html
+            cv-en-env-variables/cv-en_cv.pdf
+            cv-en-env-variables/cv-en_cv.html
+            cv-ja-env-variables/cv-ja_cv.pdf
+            cv-ja-env-variables/cv-ja_cv.html
+            cv-ja-env-variables/cv-ja_rirekisho.pdf
+            cv-ja-env-variables/cv-ja_rirekisho.html
           generate_release_notes: true

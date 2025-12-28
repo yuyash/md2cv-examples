@@ -21,3 +21,7 @@ npm-debug.log*
 .idea/
 *.swp
 *.swo
+
+# Environment files with personal information
+cv-en-env-variables/.env
+cv-ja-env-variables/.env
