@@ -39,7 +39,7 @@ jobs:
         run: npx md2cv -i rirekisho-cv-ja/cv-ja.md -o rirekisho-cv-ja/cv-ja -f cv -t both -p a4
 
       - name: Generate Japanese Rirekisho (A3)
-        run: npx md2cv -i rirekisho-cv-ja/cv-ja.md -o rirekisho-cv-ja/cv-ja -f rirekisho -t both -p a3
+        run: npx md2cv -i rirekisho-cv-ja/cv-ja.md -o rirekisho-cv-ja/cv-ja -f rirekisho -t both -p a3 --photo rirekisho-cv-ja/sample-photo.png
 
       # ===== Environment Variables CV =====
       - name: Generate English CV from env variables (A4)
@@ -87,7 +87,7 @@ jobs:
           HOME_ADDRESS2_FURIGANA: ${{ secrets.CV_JA_HOME_ADDRESS2_FURIGANA }}
           DOB: ${{ secrets.CV_JA_DOB }}
           GENDER: ${{ secrets.CV_JA_GENDER }}
-        run: npx md2cv -i cv-ja-env-variables/cv-ja.md -o cv-ja-env-variables/cv-ja-env -f rirekisho -t both -p a3
+        run: npx md2cv -i cv-ja-env-variables/cv-ja.md -o cv-ja-env-variables/cv-ja-env -f rirekisho -t both -p a3 --photo cv-ja-env-variables/sample-photo.png
 
       - name: Get current date
         id: date
